@@ -1,25 +1,30 @@
-import merge from 'lodash.merge';
+import merge from "lodash.merge";
+import local from "./local";
+import prod from "./prod";
+import testing from "./testing";
+process.env.NODE_ENV = process.env.NODE_ENV || "development";
+const stage = process.env.STAGE || "local";
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-const stage = process.env.STAGE || 'local'
+let envConfig;
 
-let envConfig
-
-if(stage === 'production') {
-    envConfig = require('./prod').default
-} else if (stage === 'testing') {
-    envConfig = require('./staging').default
+if (stage === "production") {
+  envConfig = prod;
+} else if (stage === "testing") {
+  envConfig = testing;
 } else {
-    envConfig = require('./local').default
+  envConfig = local;
 }
 
-
-export default merge({
+export default merge(
+  {
     stage,
     env: process.env.NODE_ENV,
     port: 3001,
     secrets: {
-        jwt: process.env.JWT_SECRET,
-        dbUrl: process.env.DATABASE_URL
-    }
-    },envConfig)
+      jwt: process.env.JWT_SECRET,
+      dbUrl: process.env.DATABASE_URL,
+    },
+    baseUrl: "",
+  },
+  envConfig
+);

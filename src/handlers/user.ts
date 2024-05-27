@@ -1,3 +1,4 @@
+import { config } from "dotenv";
 import prisma from "../db";
 import { comparePasswords, createJWT, hashPassword } from "../helpers/auth";
 import { sendEmail } from "../helpers/email-sender";
@@ -22,7 +23,7 @@ export const createNewUser = async (req, res, next) => {
           from: "no-reply@example.com",
           to: `${user.email}`,
           subject: "Account Verification Link",
-          text: `Hello, ${user.firstName} ${user.lastName}, please verify you email by clicking this link: http://localhost:3001/api/users/confirmation/${user.id}/${token}`,
+          text: `Hello, ${user.firstName} ${user.lastName}, please verify you email by clicking this link: ${config.baseUrl}/${user.id}/${token}`,
         });
         if (emailData.response.includes("OK"))
           return res.json({
