@@ -24,7 +24,7 @@ export default merge(
       jwt: process.env.JWT_SECRET,
       dbUrl: process.env.DATABASE_URL,
     },
-    baseUrl: "",
+    baseUrl: process.env.BASE_URL,
   },
   envConfig
 );
