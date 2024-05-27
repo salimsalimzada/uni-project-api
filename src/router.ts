@@ -15,14 +15,12 @@ router.get("/users/confirmation/:id/:token", async (req, res, next) => {
 
   if (user.isVerified)
     return res.status(200).json({ message: "User has already been verified" });
-
   if (!user.isVerified) {
     const updatedUser = await prisma.user.update({
       data: { isVerified: true },
       where: { id },
     });
     if (updatedUser.isVerified) {
-      console.log(updatedUser, "updatedUser");
       return res.json({ message: "User was confirmed successfully" });
     }
   }
