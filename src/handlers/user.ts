@@ -4,9 +4,6 @@ import { comparePasswords, createJWT, hashPassword } from "../helpers/auth";
 import { sendEmail } from "../helpers/email-sender";
 
 export const createNewUser = async (req, res, next) => {
-  const baseUrl = process.env.BASE_URL;
-  console.log(baseUrl, "my baseUrl");
-  console.log(process.env.baseUrl, "another baseurl");
   try {
     const user = await prisma.user.create({
       data: {

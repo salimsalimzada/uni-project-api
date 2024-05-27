@@ -13,7 +13,9 @@ app.use(morgan("dev"));
 app.get("/", (req, res, next) => {
   res.json({ message: "hello" });
 });
-
+const baseUrl = process.env.BASE_URL;
+console.log(baseUrl, "my baseUrl");
+console.log(process.env.baseUrl, "another baseurl");
 app.use("/api", router);
 
 app.post("/signup", createNewUser);
