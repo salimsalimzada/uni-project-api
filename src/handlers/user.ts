@@ -4,10 +4,6 @@ import { comparePasswords, createJWT, hashPassword } from "../helpers/auth";
 import { sendEmail } from "../helpers/email-sender";
 
 export const createNewUser = async (req, res, next) => {
-  const baseUrl =
-    process.env.STAGE === "production"
-      ? process.env.BASE_URL
-      : "http://localhost:3001";
   try {
     const user = await prisma.user.create({
       data: {
@@ -27,7 +23,7 @@ export const createNewUser = async (req, res, next) => {
           from: "no-reply@example.com",
           to: `${user.email}`,
           subject: "Account Verification Link",
-          text: `Hello, ${user.firstName} ${user.lastName}, please verify you email by clicking this link: ${baseUrl}/api/users/confirmation/${user.id}/${token}`,
+          text: `Hello, ${user.firstName} ${user.lastName}, please verify you email by clicking this link: https://uni-project-api.onrender.com/api/users/confirmation/${user.id}/${token}`,
         });
         if (emailData.response.includes("OK"))
           return res.json({
