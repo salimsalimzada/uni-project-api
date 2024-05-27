@@ -23,7 +23,7 @@ export const createNewUser = async (req, res, next) => {
           from: "no-reply@example.com",
           to: `${user.email}`,
           subject: "Account Verification Link",
-          text: `Hello, ${user.firstName} ${user.lastName}, please verify you email by clicking this link: ${process.env.baseUrl}/${user.id}/${token}`,
+          text: `Hello, ${user.firstName} ${user.lastName}, please verify you email by clicking this link: ${process.env.BASE_URL}/${user.id}/${token}`,
         });
         if (emailData.response.includes("OK"))
           return res.json({
