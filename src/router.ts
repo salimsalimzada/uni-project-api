@@ -21,8 +21,10 @@ router.get("/users/confirmation/:id/:token", async (req, res, next) => {
       data: { isVerified: true },
       where: { id },
     });
-    if (updatedUser.isVerified)
+    if (updatedUser.isVerified) {
+      console.log(updatedUser, "updatedUser");
       return res.json({ message: "User was confirmed successfully" });
+    }
   }
 });
 export default router;
