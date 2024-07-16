@@ -2,7 +2,6 @@ import merge from "lodash.merge";
 import local from "./local";
 import prod from "./prod";
 import testing from "./testing";
-process.env.NODE_ENV = process.env.NODE_ENV || "development";
 const stage = process.env.STAGE || "local";
 
 let envConfig;
